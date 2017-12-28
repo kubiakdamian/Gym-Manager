@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { connect } from "react-redux";
 import NavbarLink from "../NavbarLink";
 import BackgroundImage from "../images/BACKGROUND.jpg"
-import Button from "../user-interface/Button.js"
+import Overlap from "./Overlap"
 
 export default class homePage extends React.Component {
 
@@ -27,44 +27,30 @@ export default class homePage extends React.Component {
           <Reference className="col-md-1">dieta</Reference>
           <Reference className="col-md-1">wymiary</Reference>
         </NavBar>
-        <Training className="col-md-12">
-          <Header className="col-md-12">Trening</Header>
-          <div className="col-md-12" style={{textAlign: "center"}}>
-            <img
-              src={require("../images/gym.png")}
-              style={{ width: "128px" }}
-            />
-          </div>
-          <Description className="col-md-6 col-md-offset-3">
-            Zarządaj swoim treningiem łatwiej niż kiedykolwiek. Dodawaj nowe ćwiczenia, liczbe serii oraz powtórzeń.
-            Kontroluj progress w czytelny sposób.
-          </Description>
-          <Button className="col-md-2 col-md-offset-5" label="Edytuj trening" style={{backgroundColor: "rgb(222, 129, 0)", fontWeight: "bold"}}/>
-        </Training>
+        <Overlap
+          header = "Trening"
+          description="Zarządaj swoim treningiem łatwiej niż kiedykolwiek. Dodawaj nowe ćwiczenia, liczbe serii oraz powtórzeń.
+          Kontroluj progress w czytelny sposób."
+          label = "Edytuj trening"
+          path="gym.png"
+        />
+        <Overlap
+          header = "Dieta"
+          description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
+          label = "Edytuj diete"
+          path="diet.png"
+        />
+        <Overlap
+          header = "Wymiary"
+          description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
+          label = "Edytuj diete"
+          path="shape.png"
+        />
       </div>
     );
   }
 }
 
-const Header = styled.div`
-  color: white;
-  text-align: center;
-  font-size: 50px;
-  margin-top: 70px;
-  font-family: 'Oswald', sans-serif;
-`
-
-const Description = styled.div`
-  color: white;
-  margin-top: 25px;
-  margin-bottom: 40px;
-  font-size: 20px;
-  text-align: center;
-`
-
-const Training = styled.div`
-  height: 800px;
-`
 
 const Qutation = styled.div`
   font-family: 'Raleway', sans-serif;
