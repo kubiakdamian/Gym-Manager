@@ -236,7 +236,7 @@ const Text = styled.div`
 
 const StyledButton = styled(Button) `
 
-  background-color: rgba(80, 0, 255, 0.88);
+  background-color: rgb(222, 129, 0);
   font-family: 'Indie Flower', cursive;
   font-weight: bold;
   font-size: 20px;

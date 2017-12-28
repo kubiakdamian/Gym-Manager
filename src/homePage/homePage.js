@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import NavbarLink from "../NavbarLink";
 import BackgroundImage from "../images/BACKGROUND.jpg"
 import Overlap from "./Overlap"
+import { withRouter } from "react-router";
 
-export default class homePage extends React.Component {
+class homePage extends React.Component {
 
-  printHeight = () => {
-    console.log(window.innerHeight);
+  moveToHomepage = () => {
+    this.props.router.push("home_page");
   }
 
   render() {
@@ -23,34 +24,55 @@ export default class homePage extends React.Component {
         <NavBar className="col-md-12">
           <SiteName className="col-md-3">Gym Manager</SiteName>
           <div className="col-md-6"></div>
-          <Reference className="col-md-1">trening</Reference>
-          <Reference className="col-md-1">dieta</Reference>
-          <Reference className="col-md-1">wymiary</Reference>
+          <Reference className="col-md-1" href="#trening">trening</Reference>
+          <Reference className="col-md-1" href="#dieta">dieta</Reference>
+          <Reference className="col-md-1" href="#wymiary">wymiary</Reference>
         </NavBar>
-        <Overlap
-          header = "Trening"
-          description="Zarządaj swoim treningiem łatwiej niż kiedykolwiek. Dodawaj nowe ćwiczenia, liczbe serii oraz powtórzeń.
-          Kontroluj progress w czytelny sposób."
-          label = "Edytuj trening"
-          path="gym.png"
-        />
-        <Overlap
-          header = "Dieta"
-          description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
-          label = "Edytuj diete"
-          path="diet.png"
-        />
-        <Overlap
-          header = "Wymiary"
-          description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
-          label = "Edytuj diete"
-          path="shape.png"
-        />
+        <hr width="75%" />
+        <section id="trening">
+          <Overlap
+            header = "Trening"
+            description="Zarządaj swoim treningiem łatwiej niż kiedykolwiek. Dodawaj nowe ćwiczenia, liczbe serii oraz powtórzeń.
+            Kontroluj progress w czytelny sposób."
+            label = "Edytuj trening"
+            path="gym.png"
+          />
+        </section>
+        <hr width="75%" />
+        <section id="dieta">
+          <Overlap
+            header = "Dieta"
+            description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
+            label = "Edytuj diete"
+            path="diet.png"
+          />
+        </section>
+        <hr width="75%" />
+        <hr width="75%" />
+        <section id="wymiary">
+          <Overlap
+            header = "Wymiary"
+            description="Kontroluj swoje wymiary, sprawdzaj jak zmienia się Twoje ciało."
+            label = "Edytuj wymiary"
+            path="shape.png"
+          />
+        </section>
+        <Footer className="col-md-12">
+           © 2017 Damian Kubiak
+        </Footer>
       </div>
     );
   }
 }
 
+export default withRouter(homePage);
+
+const Footer = styled.footer`
+  color: white;
+  font-size: 15px;
+  background-color: rgb(40, 40, 40);
+  height: 4vh;
+`
 
 const Qutation = styled.div`
   font-family: 'Raleway', sans-serif;
@@ -92,7 +114,7 @@ const SiteName = styled.div`
   }
 `
 
-const Reference = styled.div`
+const Reference = styled.a`
   text-align: center;
   margin-top: 3vh;
   vertical-align: middle;
@@ -101,6 +123,6 @@ const Reference = styled.div`
 
   &:hover{
     cursor: pointer;
-    color: rgb(228, 137, 0)
+    color: rgb(228, 137, 0);
   }
 `
