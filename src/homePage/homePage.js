@@ -13,6 +13,18 @@ class homePage extends React.Component {
     this.props.router.push("home_page");
   }
 
+  moveToTraining = () => {
+    this.props.router.push("training");
+  }
+
+  moveToDiet = () => {
+    this.props.router.push("diet");
+  }
+
+  moveToSizes = () => {
+    this.props.router.push("sizes");
+  }
+
   render() {
     return (
       <div>
@@ -35,6 +47,7 @@ class homePage extends React.Component {
             description="Zarządaj swoim treningiem łatwiej niż kiedykolwiek. Dodawaj nowe ćwiczenia, liczbe serii oraz powtórzeń.
             Kontroluj progress w czytelny sposób."
             label = "Edytuj trening"
+            onClick = {this.moveToTraining}
             path="gym.png"
           />
         </section>
@@ -44,6 +57,7 @@ class homePage extends React.Component {
             header = "Dieta"
             description="Zaplanuj swoją dietę z Gym Managerem. Oblicz zapotrzebowanie kaloryczne i kontroluj jak jesz."
             label = "Edytuj diete"
+            onClick = {this.moveToDiet}
             path="diet.png"
           />
         </section>
@@ -54,11 +68,12 @@ class homePage extends React.Component {
             header = "Wymiary"
             description="Kontroluj swoje wymiary, sprawdzaj jak zmienia się Twoje ciało."
             label = "Edytuj wymiary"
+            onClick = {this.moveToSizes}
             path="shape.png"
           />
         </section>
         <Footer className="col-md-12">
-           © 2017 Damian Kubiak
+           <div style={{float: "right"}}>© 2017 Damian Kubiak</div>
         </Footer>
       </div>
     );

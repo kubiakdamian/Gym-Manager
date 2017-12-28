@@ -29,7 +29,7 @@ export default class Overlap extends React.Component {
         <Description className="col-md-6 col-md-offset-3">
           {this.props.description}
         </Description>
-        <Button className="col-md-2 col-md-offset-5" label={this.props.label} style={{backgroundColor: "rgb(222, 129, 0)", fontWeight: "bold"}}/>
+        <Button className="col-md-2 col-md-offset-5" label={this.props.label} style={{backgroundColor: "rgb(222, 129, 0)", fontWeight: "bold"}} onClick={this.props.onClick}/>
       </Content>
     )
   }
