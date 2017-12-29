@@ -34,7 +34,7 @@ class homePage extends React.Component {
           </Qutation>
         </Background>
         <NavBar className="col-md-12">
-          <SiteName className="col-md-3">Gym Manager</SiteName>
+          <SiteName className="col-md-3" onClick={this.moveToHomepage}>Gym Manager</SiteName>
           <div className="col-md-6"></div>
           <Reference className="col-md-1" href="#trening">trening</Reference>
           <Reference className="col-md-1" href="#dieta">dieta</Reference>
