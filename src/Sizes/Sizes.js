@@ -3,6 +3,9 @@ import { withRouter, browserHistory } from "react-router";
 import styled from "styled-components";
 import axios from "axios";
 import { connect } from "react-redux";
+import Modal from "react-modal";
+import Button from "../user-interface/Button";
+import AddSizes from "./addSizes"
 
 class Sizes extends React.Component {
   constructor(props){
@@ -20,7 +23,8 @@ class Sizes extends React.Component {
       calf: 0,
       date: 0,
       page: 0,
-      arrayLenght: 0
+      arrayLenght: 0,
+      isActiveModal: false
     }
   }
 
@@ -51,6 +55,12 @@ class Sizes extends React.Component {
 
   componentWillMount(){
     this.getData();
+  }
+
+  toggleModal = () => {
+    this.setState({
+      isActiveModal: !this.state.isActiveModal
+    })
   }
 
   moveToHomepage = () => {
@@ -128,19 +138,32 @@ class Sizes extends React.Component {
           />
           <SizeText>Waga: {this.state.weight}kg</SizeText>
         </Size>
-        <div className="col-md-12" style={{marginTop: "8vh", paddingLeft: "42vw"}}>
+        <div className="col-md-12" style={{marginTop: "8vh", paddingLeft: "38vw"}}>
+          <div className="col-md-12">
+            <ConfirmationButton
+              label={"DODAJ WYMIARY"}
+              onClick={this.toggleModal}
+            />
+          </div>
           <Arrow className="col-md-2" onClick = {this.backward}>
             <img
               src={require(`../images/training/backward.png`)}
               style={{ width: "64px" }}
             />
           </Arrow>
-          <Arrow className="col-md-2" onClick = {this.forward}>
+          <Arrow className="col-md-2" onClick = {this.forward} style={{paddingLeft:"4vw"}}>
             <img
               src={require(`../images/training/forward.png`)}
               style={{ width: "64px" }}
             />
           </Arrow>
+          <Modal
+            isOpen={this.state.isActiveModal}
+            style={styledModal}
+            onRequestClose={this.toggleModal}>
+
+            <AddSizes userId={this.props.user.id} closeModal={this.toggleModal}/>
+          </Modal>
         </div>
       </div>
     )
@@ -154,6 +177,14 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(withRouter(Sizes));
+
+const ConfirmationButton = styled(Button)`
+  background-color: gray;
+  font-family: 'Indie Flower', cursive;
+  font-weight: bold;
+  font-size: 20px;
+  width: 30%;
+`;
 
 const Back = styled.div`
   &:hover{
@@ -204,3 +235,30 @@ const Header = styled.div`
   text-align: center;
   text-shadow: 4px 4px 2px rgba(101, 99, 99, 1);
 `
+
+
+const styledModal = {
+  overlay : {
+      position          : 'fixed',
+      top               : 0,
+      left              : 0,
+      right             : 0,
+      bottom            : 0,
+      backgroundColor   : 'rgba(255, 255, 255, 0)'
+    },
+    content : {
+      position                   : 'absolute',
+      top                        : '60px',
+      left                       : '60px',
+      right                      : '60px',
+      bottom                     : '60px',
+      border                     : '1px solid #ccc',
+      background                 : 'rgba(47, 47, 47, 0.98)',
+      overflow                   : 'auto',
+      WebkitOverflowScrolling    : 'touch',
+      borderRadius               : '4px',
+      outline                    : 'none',
+      padding                    : '20px'
+
+    }
+};

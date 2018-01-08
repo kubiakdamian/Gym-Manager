@@ -17,8 +17,23 @@ class Diet extends React.Component {
       isActiveCaloriesValues: false,
       thinning: 0,
       stagnation: 0,
-      gaining: 0
+      gaining: 0,
+      meals: []
     };
+  }
+
+  componentWillMount(){
+    axios
+      .get(`http://localhost:80/GymManager/index.php/Calories/getMeals`)
+      .then(response => {
+        console.log("meals mount", response);
+        this.setState({
+          meals: response.data.results
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   moveToHomepage = () => {
@@ -62,7 +77,38 @@ class Diet extends React.Component {
       });
   }
 
+  printCalories = () => {
+    if(this.state.meals.length > 0){
+      return(
+        <div>
+        <MealsText>
+          <div className="col-md-3">{this.state.meals[0].nazwa}</div>
+          <Value className="col-md-2">{this.state.meals[0].kalorie}</Value>
+          <Value className="col-md-2">{this.state.meals[0].bialko}</Value>
+          <Value className="col-md-2">{this.state.meals[0].weglowodany}</Value>
+          <Value className="col-md-2">{this.state.meals[0].tluszcze}</Value>
+        </MealsText>
+        <MealsText>
+          <div className="col-md-3">{this.state.meals[1].nazwa}</div>
+          <Value className="col-md-2">{this.state.meals[1].kalorie}</Value>
+          <Value className="col-md-2">{this.state.meals[1].bialko}</Value>
+          <Value className="col-md-2">{this.state.meals[1].weglowodany}</Value>
+          <Value className="col-md-2">{this.state.meals[1].tluszcze}</Value>
+        </MealsText>
+        <MealsText>
+          <div className="col-md-3">{this.state.meals[2].nazwa}</div>
+          <Value className="col-md-2">{this.state.meals[2].kalorie}</Value>
+          <Value className="col-md-2">{this.state.meals[2].bialko}</Value>
+          <Value className="col-md-2">{this.state.meals[2].weglowodany}</Value>
+          <Value className="col-md-2">{this.state.meals[2].tluszcze}</Value>
+        </MealsText>
+      </div>
+      )
+    }
+  }
+
   render(){
+    this.printCalories();
     return(
       <Background>
         <Back className="col-md-1" onClick={this.moveToHomepage}>
@@ -82,7 +128,15 @@ class Diet extends React.Component {
         isOpen={this.state.isActiveMeals}
         className="col-md-4 col-md-offset-4"
         style={styledModal}>
-        POSILKI
+        <MealsText style={{color: "rgb(54, 54, 54)"}}>
+          <div className="col-md-3">posiłek</div>
+          <Value className="col-md-2">kcal</Value>
+          <Value className="col-md-2">b</Value>
+          <Value className="col-md-2">w</Value>
+          <Value className="col-md-2">t</Value>
+        </MealsText>
+
+        {this.printCalories()}
       </Modal>
 
       <Modal
@@ -97,9 +151,9 @@ class Diet extends React.Component {
         className="col-md-4 col-md-offset-4"
         style={styledModal}>
         <CaloriesText>
-          Aby schudnąć: {this.state.thinning} <br />
-          Aby utrzymać wagę: {this.state.stagnation} <br />
-          Aby przytyć: {this.state.gaining} <br />
+          Aby schudnąć: {this.state.thinning} kcal <br />
+          Aby utrzymać wagę: {this.state.stagnation} kcal <br />
+          Aby przytyć: {this.state.gaining} kcal <br />
         </CaloriesText>
       </Modal>
     </Background>
@@ -126,6 +180,10 @@ const Background = styled.div`
     transform: scale(0.9);
 
   }
+`
+
+const Value = styled.div`
+  padding-left: 5vw;
 `
 
 const Header = styled.div`
@@ -155,6 +213,13 @@ const Back = styled.div`
 `
 
 const CaloriesText = styled.div`
+  font-size: 30px;
+  color: white;
+  text-shadow: 4px 4px 2px rgba(101, 99, 99, 1);
+  font-weight: bold;
+`
+
+const MealsText = styled.div`
   font-size: 30px;
   color: white;
   text-shadow: 4px 4px 2px rgba(101, 99, 99, 1);
