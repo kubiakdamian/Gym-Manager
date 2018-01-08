@@ -3,6 +3,8 @@ import Select from 'react-select';
 import Button from "../user-interface/Button";
 import styled from "styled-components";
 import axios from "axios";
+import { callToast } from "../lib/alert";
+import { toast } from "react-toastify";
 import 'react-select/dist/react-select.css';
 
 export default class Calories extends React.Component {
@@ -12,9 +14,6 @@ export default class Calories extends React.Component {
       height: 0,
       weight: 0,
       age: 0,
-      thinning: 0,
-      stagnation: 0,
-      gaining: 0
     }
 
     handleChange = (selectedOption) => {
@@ -37,21 +36,29 @@ export default class Calories extends React.Component {
     };
 
     countCalories = () => {
-      let calories = 0;
-      calories = ((9.99 * this.state.weight) + (6.25 * this.state.height) - (4.92 *this.state.age) - 161) * this.state.ratio;
+      if(this.state.weight < 500 && this.state.height < 250 && this.state.age < 150){
+        let calories = 0;
+        calories = ((9.99 * this.state.weight) + (6.25 * this.state.height) - (4.92 *this.state.age) - 161) * this.state.ratio;
+        let thinning = calories - 300;
+        let stagnation = calories;
+        let gaining = calories + 300;
 
-      axios
-      .post('http://localhost/GymManager/index.php/Calories/updateCalories/', {
-        thinning: calories - 300,
-        stagnation: calories,
-        gaining: calories + 300
-      })
-        .then(response => {
-          console.log(response);
+        axios
+        .post(`http://localhost/GymManager/index.php/Calories/updateCalories/${thinning}/${stagnation}/${gaining}`, {
+
         })
-        .catch(error => {
-          console.log(error);
-        });
+          .then(response => {
+            console.log(response);
+            callToast("Pomyślnie policzono kalorie.");
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }else{
+        callToast("Wprowadzono niepoprawne dane")
+      }
+
 
     }
 
