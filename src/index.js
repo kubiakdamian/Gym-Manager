@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.min.css";
+import "react-toastify/dist/ReactToastify.min.css";
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';

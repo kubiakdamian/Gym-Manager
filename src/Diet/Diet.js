@@ -12,8 +12,7 @@ class Diet extends React.Component {
     super(props);
 
     this.state = {
-      isActiveBMI: false,
-      isActiveBMR: false,
+      isActiveMeals: false,
       isActiveCalories: false,
       isActiveCaloriesValues: false,
       thinning: 0,
@@ -26,19 +25,9 @@ class Diet extends React.Component {
     this.props.router.push("home_page")
   }
 
-  toggleBMI = () => {
+  toggleMeals = () => {
     this.setState({
-      isActiveBMI: true,
-      isActiveBMR: false,
-      isActiveCalories: false,
-      isActiveCaloriesValues: false
-    })
-  }
-
-  toggleBMR = () => {
-    this.setState({
-      isActiveBMI: false,
-      isActiveBMR: true,
+      isActiveMeals: true,
       isActiveCalories: false,
       isActiveCaloriesValues: false
     })
@@ -46,8 +35,7 @@ class Diet extends React.Component {
 
   toggleCalories = () => {
     this.setState({
-      isActiveBMI: false,
-      isActiveBMR: false,
+      isActiveMeals: false,
       isActiveCalories: true,
       isActiveCaloriesValues: false
     })
@@ -55,8 +43,7 @@ class Diet extends React.Component {
 
   toogleCaloriesValues = () => {
     this.setState({
-      isActiveBMI: false,
-      isActiveBMR: false,
+      isActiveMeals: false,
       isActiveCalories: false,
       isActiveCaloriesValues: true
     });
@@ -87,22 +74,15 @@ class Diet extends React.Component {
         <div className="col-md-11" />
         <Header className="col-md-12">Dieta</Header>
         <div className="col-md-12" style={{paddingLeft: "32vw"}}>
-          <Text className="col-md-2" onClick={this.toggleBMI}>BMI</Text>
-          <Text className="col-md-2" onClick={this.toggleBMR}>BMR</Text>
-          <Text className="col-md-2" onClick={this.toggleCalories}>KALORIE</Text>
+          <Text className="col-md-3" onClick={this.toggleMeals}>POSIŁKI</Text>
+          <Text className="col-md-3" onClick={this.toggleCalories}>KALORIE</Text>
       </div>
-      <Modal
-        isOpen={this.state.isActiveBMI}
-        className="col-md-4 col-md-offset-4"
-        style={styledModal}>
-        BMI
-      </Modal>
 
       <Modal
-        isOpen={this.state.isActiveBMR}
+        isOpen={this.state.isActiveMeals}
         className="col-md-4 col-md-offset-4"
         style={styledModal}>
-        BMR
+        POSILKI
       </Modal>
 
       <Modal

@@ -36,7 +36,7 @@ export default class Calories extends React.Component {
     };
 
     countCalories = () => {
-      if(this.state.weight < 500 && this.state.height < 250 && this.state.age < 150){
+      if(this.state.weight < 500 && this.state.height < 250 && this.state.age < 150 && this.state.weight > 0 && this.state.height > 0 && this.state.age > 0){
         let calories = 0;
         calories = ((9.99 * this.state.weight) + (6.25 * this.state.height) - (4.92 *this.state.age) - 161) * this.state.ratio;
         let thinning = calories - 300;
