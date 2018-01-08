@@ -2,14 +2,81 @@ import React from "react";
 import { withRouter, browserHistory } from "react-router";
 import styled from "styled-components";
 import BackgroundImage from "../images/dietBackground3.jpg"
+import Modal from "react-modal";
+import Calories from "./Calories"
+import axios from "axios";
 
 class Diet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isActiveBMI: false,
+      isActiveBMR: false,
+      isActiveCalories: false,
+      isActiveCaloriesValues: false,
+      thinning: 0,
+      stagnation: 0,
+      gaining: 0
+    };
+  }
 
   moveToHomepage = () => {
     this.props.router.push("home_page")
   }
 
+  toggleBMI = () => {
+    this.setState({
+      isActiveBMI: true,
+      isActiveBMR: false,
+      isActiveCalories: false,
+      isActiveCaloriesValues: false
+    })
+  }
+
+  toggleBMR = () => {
+    this.setState({
+      isActiveBMI: false,
+      isActiveBMR: true,
+      isActiveCalories: false,
+      isActiveCaloriesValues: false
+    })
+  }
+
+  toggleCalories = () => {
+    this.setState({
+      isActiveBMI: false,
+      isActiveBMR: false,
+      isActiveCalories: true,
+      isActiveCaloriesValues: false
+    })
+  }
+
+  toogleCaloriesValues = () => {
+    this.setState({
+      isActiveBMI: false,
+      isActiveBMR: false,
+      isActiveCalories: false,
+      isActiveCaloriesValues: true
+    });
+
+    axios
+      .get("http://localhost:80/GymManager/index.php/Calories/getCalories/1")
+      .then(response => {
+        console.log(response);
+        this.setState({
+          thinning: response.data.results[0].chudniecie,
+          stagnation: response.data.results[0].utrzymanie,
+          gaining: response.data.results[0].tycie
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render(){
+    console.log("STATE", this.state.gaining);
     return(
       <Background>
         <Back className="col-md-1" onClick={this.moveToHomepage}>
@@ -20,11 +87,42 @@ class Diet extends React.Component {
         </Back>
         <div className="col-md-11" />
         <Header className="col-md-12">Dieta</Header>
-        <div className="col-md-12" style={{marginTop: "10vh", paddingLeft: "32vw"}}>
-          <Text className="col-md-2">BMI</Text>
-          <Text className="col-md-2">BMR</Text>
-          <Text className="col-md-2">KALORIE</Text>
+        <div className="col-md-12" style={{paddingLeft: "32vw"}}>
+          <Text className="col-md-2" onClick={this.toggleBMI}>BMI</Text>
+          <Text className="col-md-2" onClick={this.toggleBMR}>BMR</Text>
+          <Text className="col-md-2" onClick={this.toggleCalories}>KALORIE</Text>
       </div>
+      <Modal
+        isOpen={this.state.isActiveBMI}
+        className="col-md-4 col-md-offset-4"
+        style={styledModal}>
+        BMI
+      </Modal>
+
+      <Modal
+        isOpen={this.state.isActiveBMR}
+        className="col-md-4 col-md-offset-4"
+        style={styledModal}>
+        BMR
+      </Modal>
+
+      <Modal
+        isOpen={this.state.isActiveCalories}
+        className="col-md-4 col-md-offset-4"
+        style={styledModal}>
+        <Calories showCalories={this.toogleCaloriesValues}/>
+      </Modal>
+
+      <Modal
+        isOpen={this.state.isActiveCaloriesValues}
+        className="col-md-4 col-md-offset-4"
+        style={styledModal}>
+        <CaloriesText>
+          Aby schudnąć: {this.state.thinning} <br />
+          Aby utrzymać wagę: {this.state.stagnation} <br />
+          Aby przytyć: {this.state.gaining} <br />
+        </CaloriesText>
+      </Modal>
     </Background>
     )
   }
@@ -70,3 +168,33 @@ const Back = styled.div`
     cursor: pointer;
   }
 `
+
+const CaloriesText = styled.div`
+  font-size: 30px;
+  color: white;
+  text-shadow: 4px 4px 2px rgba(101, 99, 99, 1);
+  font-weight: bold;
+`
+
+const styledModal = {
+  overlay: {
+    position: "fixed",
+    top: "40%",
+    left: "35%",
+    height: "50%",
+    width: "35%",
+    backgroundColor: "rgba(23, 23, 23, 0)"
+  },
+
+  content: {
+    position: "absolute",
+    top: 0,
+    left: "-35%",
+    opacity: "1",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    outline: "none",
+    height: "100%",
+    width: "100%",
+  }
+};

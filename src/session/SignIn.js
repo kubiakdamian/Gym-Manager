@@ -7,12 +7,12 @@ import Button from "../user-interface/Button";
 import Loader from "../user-interface/Loader";
 import { callToast } from "../lib/alert";
 import axios from "axios";
-// var $ = require('jquery');
+var $ = require('jquery');
 
 export class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { login: "", password: "", loader: false,loginCheck: "",nick:"",token:""};
+    this.state = { login: "", password: "", loader: false,loginCheck: "",token:""};
 
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleChange = this._handleChange.bind(this);
@@ -67,42 +67,35 @@ export class SignIn extends React.Component {
 
   _handleSubmit(e){
   e.preventDefault();
-  this.props.router.push("home_page");
-  // $.ajax({
-  //     url: process.env.NODE_ENV !== "production" ? 'http://localhost:80/Cinema/index.php/Login/login' : "http://localhost:80/Cinema/index.php/Login/login",
-  //     // url: "./php/mailer.php",
-  //     //./index.php/Login/login
-  //     type: 'POST',
-  //     data: {
-  //       'login': this.state.login,
-  //       'password': this.state.password
-  //     },
-  //     success: function(data) {
-  //       console.log("LOGIN", data);
-  //       this.state.loginCheck = data['status'];
-  //       this.state.nick = data['status'];
-  //       this.state.token = data['token'];
-  //       if(this.state.loginCheck!=null && this.state.loginCheck!="notExist"){
-  //         this.props.dispatch({
-  //           type: "LOGIN",
-  //           data: {
-  //             login: data.status
-  //           }
-  //         });
-  //       this.props.router.push("home_page");
-  //       }else{
-  //     callToast("Wprowadzono niepoprawny e-mail i hasło.");
-  //     }
-  //
-  //     }.bind(this),
-  //     error: function(xhr, status, err) {
-  //       console.log(xhr, status);
-  //       console.log(err);
-  //       this.setState({
-  //         contactMessage: 'Błąd',
-  //       });
-  //     }.bind(this)
-  //   });
+  $.ajax({
+      url: process.env.NODE_ENV !== "production" ? 'http://localhost:80/GymManager/index.php/Login/login' : "http://localhost:80/GymManager/index.php/Login/login",
+      // url: "./php/mailer.php",
+      //./index.php/Login/login
+      type: 'POST',
+      data: {
+        'email': this.state.login,
+        'password': this.state.password
+      },
+      success: function(data) {
+        console.log("LOGIN", data);
+        this.state.loginCheck = data['status'];
+        this.state.token = data['token'];
+        if(this.state.loginCheck!=null && this.state.loginCheck!="notExist"){
+        this.props.router.push("home_page");
+        }
+        else{
+          callToast("Wprowadzono niepoprawny e-mail i hasło.");
+        }
+
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(xhr, status);
+        console.log(err);
+        this.setState({
+          contactMessage: 'Błąd',
+        });
+      }.bind(this)
+    });
   };
 
 
@@ -145,7 +138,7 @@ export default connect()(withRouter(SignIn));
 const Text = styled.div`
   font-size: 20px;
   float:right;
-  color: rgb(0, 135, 219);
+  color: rgb(6, 200, 251);
   font-weight: bold;
 
   &:hover{
@@ -155,7 +148,7 @@ const Text = styled.div`
 `
 
 const ConfirmationButton = styled(Button)`
-  background-color: rgb(222, 129, 0);
+  background-color: gray;
   font-family: 'Indie Flower', cursive;
   font-weight: bold;
   font-size: 20px;

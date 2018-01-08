@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import SignUp from "./session/SignUp";
 import SignIn from "./session/SignIn";
-import BackgroundImage from "./images/loginImage3.jpg"
+import BackgroundImage from "./images/backgroundImage5.jpg"
 
 export class Home extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export class Home extends React.Component {
       <div>
       <Background>
         <StyledContainer className="container-fluid">
-          <div className="col-md-6 col-md-offset-3" style={{color: "gray"}}>Gym Manager</div>
+          <div className="col-md-6 col-md-offset-3" style={{color: "rgb(222, 129, 0)"}}>Gym Manager</div>
           <Modal
             isOpen={this.state.isActiveSignIn}
             className="col-md-4 col-md-offset-4"
@@ -62,7 +62,7 @@ export class Home extends React.Component {
             isOpen={this.state.isActiveSignUp}
             className="col-md-4 col-md-offset-4"
             style={styledModal}>
-            <SignUp modalClose={this.changeModal} onClick={this.changeModal}/>
+            <SignUp modalClose={this.changeModal} onClick={this.changeModal} success={this.changeModal}/>
           </Modal>
         </StyledContainer>
     </Background>
@@ -78,6 +78,7 @@ const Background = styled.div`
   background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
   opacity: 0.95;
   background-size: auto;
   min-height: 100vh;
@@ -131,7 +132,7 @@ const styledModal = {
     backgroundColor: "rgba(23, 23, 23)"
   },
   content: {
-    marginTop: "30vh",
+    marginTop: "25vh",
     borderRadius: "10px",
     opacity: "1",
     overflow: "auto",

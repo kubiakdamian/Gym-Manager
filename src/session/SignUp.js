@@ -7,7 +7,7 @@ import Input from "../user-interface/Input";
 import Button from "../user-interface/Button";
 import { withRouter } from "react-router";
 import Loader from "../user-interface/Loader";
-// var $ = require('jquery');
+var $ = require('jquery');
 
 export class SignUp extends Component {
   constructor(props) {
@@ -124,42 +124,42 @@ export class SignUp extends Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    // if (!this.checkConditions()) {
-    //   this.wrongRegistrationAlerts();
-    // } else {
-    //   $.ajax({
-    //     url: process.env.NODE_ENV !== "production" ? 'http://localhost:80/Cinema/index.php/Login/register' : "http://localhost:80/Cinema/index.php/Login/register",
-    //     // url: "./php/mailer.php",
-    //     type: 'POST',
-    //     data: {
-    //       'login': this.state.login,
-    //       'password': this.state.password,
-    //       'nick': this.state.nick
-    //     },
-    //     success: function (data) {
-    //       this.state.loginCheck = data;
-    //       if (this.state.loginCheck == "Login not unique") {
-    //         callToast("Użytkownik już istnieje!");
-    //       }
-    //       else if (this.state.loginCheck == "notExist") {
-    //         callToast("Zarejestrowano, proszę się zalogować");
-    //         this.props.router.push("/");
-    //       }
-    //       else if (this.state.loginCheck == "Nick not unique") {
-    //         callToast("Ten nick jest już zajęty!");
-    //       }
-    //
-    //
-    //     }.bind(this),
-    //     error: function (xhr, status, err) {
-    //       console.log(xhr, status);
-    //       console.log(err);
-    //       this.setState({
-    //         contactMessage: 'Błąd',
-    //       });
-    //     }.bind(this)
-    //   });
-    // }
+    if (!this.checkConditions()) {
+      this.wrongRegistrationAlerts();
+    } else {
+      $.ajax({
+        url: process.env.NODE_ENV !== "production" ? 'http://localhost:80/GymManager/index.php/Login/register' : "http://localhost:80/GymManager/index.php/Login/register",
+        // url: "./php/mailer.php",
+        type: 'POST',
+        data: {
+          'email': this.state.login,
+          'password': this.state.password,
+        },
+        success: function (data) {
+          console.log("REG", data);
+          this.state.loginCheck = data;
+          if (this.state.loginCheck == "Email not unique") {
+            callToast("Użytkownik już istnieje!");
+          }
+          else if (this.state.loginCheck == "notExist") {
+            callToast("Zarejestrowano, proszę się zalogować");
+            this.props.success();
+          }
+          else if (this.state.loginCheck == "Nick not unique") {
+            callToast("Ten nick jest już zajęty!");
+          }
+
+
+        }.bind(this),
+        error: function (xhr, status, err) {
+          console.log(xhr, status);
+          console.log(err);
+          this.setState({
+            contactMessage: 'Błąd',
+          });
+        }.bind(this)
+      });
+    }
   };
 
   render() {
@@ -173,14 +173,6 @@ export class SignUp extends Component {
               placeholder="E-mail"
               id="login"
               type="email"
-              required />
-
-            <Input
-              onChange={this.updateNick}
-              value={this.state.nick}
-              placeholder="Nick"
-              id="nick"
-              type="text"
               required />
 
             <Input
@@ -226,7 +218,7 @@ export default connect()(withRouter(SignUp));
 const Text = styled.div`
   font-size: 20px;
   float: right;
-  color: rgb(0, 135, 219);
+  color: rgb(6, 200, 251);
   font-weight: bold;
 
   &:hover{
@@ -236,7 +228,7 @@ const Text = styled.div`
 
 const StyledButton = styled(Button) `
 
-  background-color: rgb(222, 129, 0);
+  background-color: gray;
   font-family: 'Indie Flower', cursive;
   font-weight: bold;
   font-size: 20px;
