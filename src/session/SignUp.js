@@ -136,7 +136,6 @@ export class SignUp extends Component {
           'password': this.state.password,
         },
         success: function (data) {
-          console.log("REG", data);
           this.state.loginCheck = data;
           if (this.state.loginCheck == "Email not unique") {
             callToast("Użytkownik już istnieje!");

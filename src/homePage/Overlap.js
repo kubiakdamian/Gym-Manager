@@ -19,7 +19,6 @@ export default class Overlap extends React.Component {
   }
 
   render(){
-    console.log("PATH", this.props.path);
     return(
       <Content className="col-md-12">
         <Header className="col-md-12">{this.props.header}</Header>

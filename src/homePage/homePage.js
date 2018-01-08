@@ -25,6 +25,10 @@ class homePage extends React.Component {
     this.props.router.push("sizes");
   }
 
+  logout = () => {
+    this.props.router.push("/");
+  }
+
   render() {
     return (
       <div>
@@ -35,10 +39,16 @@ class homePage extends React.Component {
         </Background>
         <NavBar className="col-md-12">
           <SiteName className="col-md-3" onClick={this.moveToHomepage}>Gym Manager</SiteName>
-          <div className="col-md-6"></div>
+          <div className="col-md-5"></div>
           <Reference className="col-md-1" href="#trening">trening</Reference>
           <Reference className="col-md-1" href="#dieta">dieta</Reference>
           <Reference className="col-md-1" href="#wymiary">wymiary</Reference>
+          <Logout onClick={this.logout}>
+            <img
+              src={require(`../images/logout.png`)}
+              style={{ width: "48px" }}
+            />
+          </Logout>
         </NavBar>
         <hr width="75%" />
         <section id="trening">
@@ -87,6 +97,14 @@ const Footer = styled.footer`
   font-size: 15px;
   background-color: rgb(40, 40, 40);
   height: 4vh;
+`
+
+const Logout = styled.div`
+  margin-top: 1.5vh;
+  float: right;
+  &:hover{
+    cursor: pointer;
+  }
 `
 
 const Qutation = styled.div`

@@ -5,6 +5,7 @@ import BackgroundImage from "../images/dietBackground3.jpg"
 import Modal from "react-modal";
 import Calories from "./Calories"
 import axios from "axios";
+import { connect } from "react-redux";
 
 class Diet extends React.Component {
   constructor(props) {
@@ -61,9 +62,8 @@ class Diet extends React.Component {
     });
 
     axios
-      .get("http://localhost:80/GymManager/index.php/Calories/getCalories/1")
+      .get(`http://localhost:80/GymManager/index.php/Calories/getCalories/${this.props.user.id}`)
       .then(response => {
-        console.log(response);
         this.setState({
           thinning: response.data.results[0].chudniecie,
           stagnation: response.data.results[0].utrzymanie,
@@ -76,7 +76,6 @@ class Diet extends React.Component {
   }
 
   render(){
-    console.log("STATE", this.state.gaining);
     return(
       <Background>
         <Back className="col-md-1" onClick={this.moveToHomepage}>
@@ -110,7 +109,7 @@ class Diet extends React.Component {
         isOpen={this.state.isActiveCalories}
         className="col-md-4 col-md-offset-4"
         style={styledModal}>
-        <Calories showCalories={this.toogleCaloriesValues}/>
+        <Calories showCalories={this.toogleCaloriesValues} userId={this.props.user.id}/>
       </Modal>
 
       <Modal
@@ -128,7 +127,13 @@ class Diet extends React.Component {
   }
 }
 
-export default withRouter(Diet);
+const mapStateToProps = state => {
+  return {
+    user: state.session.user
+  };
+};
+
+export default connect(mapStateToProps)(withRouter(Diet));
 
 const Background = styled.div`
   min-height: 100vh;

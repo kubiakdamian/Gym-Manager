@@ -43,13 +43,12 @@ export default class Calories extends React.Component {
         let stagnation = calories;
         let gaining = calories + 300;
 
+        callToast("Pomyślnie policzono kalorie.");
         axios
-        .post(`http://localhost/GymManager/index.php/Calories/updateCalories/${thinning}/${stagnation}/${gaining}`, {
+        .post(`http://localhost/GymManager/index.php/Calories/updateCalories/${thinning}/${stagnation}/${gaining}/${this.props.userId}`, {
 
         })
           .then(response => {
-            console.log(response);
-            callToast("Pomyślnie policzono kalorie.");
 
           })
           .catch(error => {
