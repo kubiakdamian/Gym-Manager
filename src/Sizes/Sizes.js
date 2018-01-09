@@ -162,7 +162,7 @@ class Sizes extends React.Component {
             style={styledModal}
             onRequestClose={this.toggleModal}>
 
-            <AddSizes userId={this.props.user.id} closeModal={this.toggleModal}/>
+            <AddSizes userId={this.props.user.id} closeModal={this.toggleModal} getData={this.getData}/>
           </Modal>
         </div>
       </div>

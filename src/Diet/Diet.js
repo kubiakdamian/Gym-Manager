@@ -77,38 +77,7 @@ class Diet extends React.Component {
       });
   }
 
-  printCalories = () => {
-    if(this.state.meals.length > 0){
-      return(
-        <div>
-        <MealsText>
-          <div className="col-md-3">{this.state.meals[0].nazwa}</div>
-          <Value className="col-md-2">{this.state.meals[0].kalorie}</Value>
-          <Value className="col-md-2">{this.state.meals[0].bialko}</Value>
-          <Value className="col-md-2">{this.state.meals[0].weglowodany}</Value>
-          <Value className="col-md-2">{this.state.meals[0].tluszcze}</Value>
-        </MealsText>
-        <MealsText>
-          <div className="col-md-3">{this.state.meals[1].nazwa}</div>
-          <Value className="col-md-2">{this.state.meals[1].kalorie}</Value>
-          <Value className="col-md-2">{this.state.meals[1].bialko}</Value>
-          <Value className="col-md-2">{this.state.meals[1].weglowodany}</Value>
-          <Value className="col-md-2">{this.state.meals[1].tluszcze}</Value>
-        </MealsText>
-        <MealsText>
-          <div className="col-md-3">{this.state.meals[2].nazwa}</div>
-          <Value className="col-md-2">{this.state.meals[2].kalorie}</Value>
-          <Value className="col-md-2">{this.state.meals[2].bialko}</Value>
-          <Value className="col-md-2">{this.state.meals[2].weglowodany}</Value>
-          <Value className="col-md-2">{this.state.meals[2].tluszcze}</Value>
-        </MealsText>
-      </div>
-      )
-    }
-  }
-
   render(){
-    this.printCalories();
     return(
       <Background>
         <Back className="col-md-1" onClick={this.moveToHomepage}>
@@ -135,8 +104,15 @@ class Diet extends React.Component {
           <Value className="col-md-2">w</Value>
           <Value className="col-md-2">t</Value>
         </MealsText>
-
-        {this.printCalories()}
+        {this.state.meals.map(i =>
+          <MealsText>
+            <div className="col-md-3">{i.nazwa}</div>
+            <Value className="col-md-2">{i.kalorie}</Value>
+            <Value className="col-md-2">{i.bialko}</Value>
+            <Value className="col-md-2">{i.weglowodany}</Value>
+            <Value className="col-md-2">{i.tluszcze}</Value>
+          </MealsText>
+        )}
       </Modal>
 
       <Modal

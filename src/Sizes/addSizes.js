@@ -67,6 +67,7 @@ export default class addSizes extends React.Component {
         });
         callToast("Dodane nowe wymiary");
         this.props.closeModal();
+        this.props.getData();
     }
 
 
